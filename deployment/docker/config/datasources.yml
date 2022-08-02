@@ -1,0 +1,43 @@
+apiVersion: 1
+datasources:
+  - access: proxy
+    basicAuth: false
+    jsonData:
+      httpHeaderName1: "X-Scope-OrgID"
+    secureJsonData:
+      httpHeaderValue1: "docker"
+    editable: true
+    isDefault: true
+    name: loki
+    type: loki
+    uid: loki
+    url: http://loki-gateway
+    version: 1
+
+  - access: proxy
+    basicAuth: false
+    editable: true
+    isDefault: false
+    name: prometheus
+    type: prometheus
+    uid: prometheus
+    url: http://prometheus:9090
+    version: 1
+
+  - access: proxy
+    type: tempo
+    name: Tempo
+    orgId: 1
+    url: http://tempo:3200
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: false
+    apiVersion: 1
+    uid: tempo
+    jsonData:
+      derivedFields:
+        - datasourceUid: tempo
+          matcherRegex: (?:traceID|trace_id)=(\w+)
+          name: TraceID
+          url: $${__value.raw}
