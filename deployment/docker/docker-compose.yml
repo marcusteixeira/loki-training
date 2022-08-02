@@ -104,12 +104,6 @@ services:
       - ./.data/minio:/data
     networks:
       - loki
-    logging:
-      driver: loki
-      options:
-        loki-url: http://loki-gateway:80/loki/api/v1/push
-        loki-timeout: 20s
-        loki-retries: 5
 
   loki-gateway:
     image: nginx:1.19
@@ -120,12 +114,6 @@ services:
       - "3100:3100"
     networks:
       - loki
-    logging:
-      driver: loki
-      options:
-        loki-url: http://loki-gateway:80/loki/api/v1/push
-        loki-timeout: 20s
-        loki-retries: 5
 
   loki-frontend:
     image: grafana/loki:2.5.0
@@ -144,12 +132,6 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-    logging:
-      driver: loki
-      options:
-        loki-url: http://loki-gateway:80/loki/api/v1/push
-        loki-timeout: 20s
-        loki-retries: 5
 
   loki-read:
     image: grafana/loki:2.5.0
@@ -178,13 +160,6 @@ services:
       mode: replicated
       replicas: 3
     # only needed for interactive debugging with dlv
-    logging:
-      driver: loki
-      options:
-        loki-url: http://loki-gateway:80/loki/api/v1/push
-        loki-external-labels: 'job=loki-read'
-        loki-timeout: 20s
-        loki-retries: 5
 
   loki-write:
     image: grafana/loki:2.5.0
@@ -212,13 +187,6 @@ services:
     deploy:
       mode: replicated
       replicas: 3
-    logging:
-      driver: loki
-      options:
-        loki-url: http://loki-gateway:80/loki/api/v1/push
-        loki-external-labels: 'job=loki-write'
-        loki-timeout: 20s
-        loki-retries: 5
   
   tempo:
     image: grafana/tempo:latest
