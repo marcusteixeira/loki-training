@@ -1,5 +1,8 @@
 run:
-	docker-compose up -f docker-compose.yml
+	docker-compose up
 
 view-logs:
-	docker-compose logs -f docker-compose.yml
+	docker-compose logs
+
+stop:
+	docker-compose down -v

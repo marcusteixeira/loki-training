@@ -71,6 +71,19 @@ services:
     networks:
       - loki
 
+  gcs:
+    image: fsouza/fake-gcs-server
+    command: [ "-public-host=gcs -port=4443"]
+    ports:
+      - "4443:4443"
+    volumes:
+      # This creates an empty Loki Data bucket
+      - ./gcs-data/:/data/loki-data/
+      # This creates an empty Loki Ruler bucket
+      - ./gcs-data/:/data/loki-ruler/
+    networks:
+      - loki
+
   minio:
     image: minio/minio
     entrypoint:
@@ -183,6 +196,9 @@ services:
       - ./tempo-data:/tmp/tempo
     ports:
       - "14268"  # jaeger ingest
+      - "3200:3200" # tempo
+    networks:
+      - loki
 
 volumes:
   prometheus:
