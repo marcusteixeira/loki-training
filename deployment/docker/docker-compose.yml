@@ -30,6 +30,7 @@ services:
       GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
     volumes:
       - ./config/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./dashboards:/etc/grafana/provisioning/dashboards/
       - grafana:/var/lib/grafana
     networks:
       - loki
