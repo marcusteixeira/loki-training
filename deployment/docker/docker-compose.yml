@@ -107,8 +107,7 @@ services:
     logging:
       driver: loki
       options:
-        loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: 'job=minio'
+        loki-url: http://loki-gateway:80/loki/api/v1/push
         loki-timeout: 20s
         loki-retries: 5
 
@@ -124,8 +123,7 @@ services:
     logging:
       driver: loki
       options:
-        loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: 'job=loki-gateway'
+        loki-url: http://loki-gateway:80/loki/api/v1/push
         loki-timeout: 20s
         loki-retries: 5
 
@@ -149,8 +147,7 @@ services:
     logging:
       driver: loki
       options:
-        loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: 'job=loki-read'
+        loki-url: http://loki-gateway:80/loki/api/v1/push
         loki-timeout: 20s
         loki-retries: 5
 
