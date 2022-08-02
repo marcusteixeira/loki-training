@@ -1,2 +1,2 @@
-# loki-training-
+# loki-training
 Grafana loki Training 
