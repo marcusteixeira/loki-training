@@ -86,6 +86,11 @@ services:
 
   minio:
     image: minio/minio
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-external-labels: "job=minio"
     entrypoint:
       - sh
       - -euc
@@ -117,6 +122,11 @@ services:
 
   loki-frontend:
     image: grafana/loki:2.5.0
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-external-labels: "job=loki-frontend"
     volumes:
         - ./config:/etc/loki/
     ports:
@@ -135,6 +145,11 @@ services:
 
   loki-read:
     image: grafana/loki:2.5.0
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-external-labels: "job=loki-read"
     volumes:
       - ./config:/etc/loki/
     ports:
@@ -163,6 +178,11 @@ services:
 
   loki-write:
     image: grafana/loki:2.5.0
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-external-labels: "job=loki-write"
     volumes:
       - ./config:/etc/loki/
     ports:
