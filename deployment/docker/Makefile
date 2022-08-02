@@ -1,5 +1,5 @@
 run:
-	docker-compose up
+	docker-compose up -d
 
 view-logs:
 	docker-compose logs
