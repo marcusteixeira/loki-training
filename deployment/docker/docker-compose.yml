@@ -108,7 +108,7 @@ services:
       driver: loki
       options:
         loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: job=minio
+        loki-external-labels: 'job=minio'
         loki-timeout: 20s
         loki-retries: 5
 
@@ -125,7 +125,7 @@ services:
       driver: loki
       options:
         loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: source=loki-gateway
+        loki-external-labels: 'job=loki-gateway'
         loki-timeout: 20s
         loki-retries: 5
 
@@ -150,7 +150,7 @@ services:
       driver: loki
       options:
         loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: source=loki-read
+        loki-external-labels: 'job=loki-read'
         loki-timeout: 20s
         loki-retries: 5
 
@@ -184,8 +184,8 @@ services:
     logging:
       driver: loki
       options:
-        loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: source=loki-read
+        loki-url: http://loki-gateway:80/loki/api/v1/push
+        loki-external-labels: 'job=loki-read'
         loki-timeout: 20s
         loki-retries: 5
 
@@ -218,8 +218,8 @@ services:
     logging:
       driver: loki
       options:
-        loki-url: 'http://loki-gateway:80/loki/api/v1/push'
-        loki-external-labels: source=loki-write
+        loki-url: http://loki-gateway:80/loki/api/v1/push
+        loki-external-labels: 'job=loki-write'
         loki-timeout: 20s
         loki-retries: 5
   
