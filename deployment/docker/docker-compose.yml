@@ -49,14 +49,7 @@ services:
   # for testing purposes only, disable in production
   log-generator:
     image: mingrammer/flog
-    command:
-      - --loop
-      - --format=json
-      - --number=10    # number of log lines to generate per second
-      - --delay=100ms  # delay between log lines
-      - --output=/var/log/generated-logs.txt
-      - --overwrite
-      - --type=log
+    command: -f json -d 1s -b 1073741824 -p 52428800 -o /var/log/generated-logs.txt -w
     volumes:
       - ./loki/:/var/log/
 
