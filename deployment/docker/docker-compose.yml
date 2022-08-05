@@ -84,6 +84,7 @@ services:
       options:
         loki-url: "http://localhost:3100/loki/api/v1/push"
         loki-external-labels: "job=minio"
+        loki-tenant-id: "system"
     entrypoint:
       - sh
       - -euc
@@ -105,6 +106,12 @@ services:
 
   loki-gateway:
     image: nginx:1.19
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-external-labels: "job=loki-gateway"
+        loki-tenant-id: "system"
     volumes:
       - ./config/nginx.conf:/etc/nginx/nginx.conf
     ports:
@@ -120,6 +127,7 @@ services:
       options:
         loki-url: "http://localhost:3100/loki/api/v1/push"
         loki-external-labels: "job=loki-frontend"
+        loki-tenant-id: "system"
     volumes:
         - ./config:/etc/loki/
     ports:
@@ -143,6 +151,7 @@ services:
       options:
         loki-url: "http://localhost:3100/loki/api/v1/push"
         loki-external-labels: "job=loki-read"
+        loki-tenant-id: "system"
     volumes:
       - ./config:/etc/loki/
     ports:
@@ -176,6 +185,7 @@ services:
       options:
         loki-url: "http://localhost:3100/loki/api/v1/push"
         loki-external-labels: "job=loki-write"
+        loki-tenant-id: "system"
     volumes:
       - ./config:/etc/loki/
     ports:
@@ -204,6 +214,12 @@ services:
   tempo:
     image: grafana/tempo:latest
     command: [ "-config.file=/etc/tempo.yaml" ]
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-external-labels: "job=tempo"
+        loki-tenant-id: "system"
     volumes:
       - ./config/tempo-local.yaml:/etc/tempo.yaml
       - ./tempo-data:/tmp/tempo
